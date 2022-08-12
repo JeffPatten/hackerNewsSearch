@@ -24,6 +24,7 @@ class Search extends Component {
       .then((result) => {
         this.setState({ items: result.hits }, () => {
           this.props.addToSearchHistory(this.state);
+          this.setState({searchTerm: ""});
         });
       })
       .catch((err) => console.warn('Request Failed', err))

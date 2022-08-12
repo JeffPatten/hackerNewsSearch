@@ -17,11 +17,11 @@ class History extends Component {
       let {searchTerm, items } = searchCompleted;
       return (
         <div key={ index }>
-          <h2> { searchTerm } </h2>
+          <h1> { searchTerm } </h1>
           {items.map((elem, i ) => {
           return (
             <div key={i}>
-              <h3>{elem.title}</h3>
+              <h4>{elem.title}</h4>
               <a href={elem.url}>{elem.url}</a>
             </div>
           );
