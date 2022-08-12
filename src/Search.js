@@ -14,12 +14,19 @@ class Search extends Component {
 
   handleSearch = () => {
     fetch(`http://hn.algolia.com/api/v1/search?query=${this.state.searchTerm}`)
-      .then((res) => res.json())
+      .then((res) =>  {
+      if (res.ok) {
+        return res.json();
+      } else {
+        // There was an error
+        return Promise.reject(res);
+      }})
       .then((result) => {
         this.setState({ items: result.hits }, () => {
           this.props.addToSearchHistory(this.state);
         });
       })
+      .catch((err) => console.warn('Request Failed', err))
   };
 
   render() {
@@ -31,6 +38,7 @@ class Search extends Component {
           id="hackersearch"
           name="hackersearch"
           onChange={(e) => this.setState({ searchTerm: e.target.value })}
+          value={this.state.searchTerm}
         />
         <button onClick={this.handleSearch}>Search</button>
 
